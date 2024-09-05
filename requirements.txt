@@ -3,3 +3,5 @@ youtube-transcript-api
 google-generativeai
 uvicorn
 fastapi
+yt-dlp
+fpdf

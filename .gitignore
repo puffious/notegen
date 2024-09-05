@@ -2,7 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+*.txt
+./cookies.txt
+*.pdf
+downloads/
+downloads/
 # C extensions
 *.so
 
