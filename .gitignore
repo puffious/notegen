@@ -9,6 +9,7 @@ downloads/
 downloads/
 # C extensions
 *.so
+fonts
 
 # Distribution / packaging
 .Python
