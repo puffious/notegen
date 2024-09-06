@@ -4,5 +4,4 @@ google-generativeai
 uvicorn
 fastapi
 yt-dlp
-# fpdf
 reportlab

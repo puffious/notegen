@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notegen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <img src="auth-illustration.svg" alt="" class="top-bg-img">
+    
+    <div class="main">
+        
+    <header>
+        <div class="nav">
+            <img src="ravenclaw_logo-transparent-white.webp" alt="Logo" class="logo-white">
+            <h1>Notegen</h1>
+            <div class="languages">
+            <i class="fa-solid fa-globe" class="globe"></i>
+            <select name="" id="lang" class="lang-opt">
+                <option value="english" class="lang-options">English</option>
+                <option value="hindi" class="lang-options">Hindi</option>
+                <option value="gujarati" class="lang-options">Gujarati</option>
+            </select>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <h1 class="headings">Transform Youtube videos into<br>Comprehensive Notes and Summaries</h1>
+        <div class="flexing">
+            <input type="text" placeholder="Enter YOUTUBE URL here" class="input-field" id="myIn">
+            <div  class="Search_bar">
+                <i class="fa-solid fa-magnifying-glass icon" onclick="getValue()"></i>
+           </div>
+        </div>
+    <div class="output"><p id="output">Your Notes Will Be Generated Here</p></div>
+    <button onclick="downloadPDF()" class="btn">Download PDF</button>
+    </div>
+    </div>
+    <img src="features-illustration-02.svg" alt="" class="bottom-bg-img">
+    
+    <script src="script.js"></script>
+</body>
+</html>

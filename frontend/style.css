@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+}
+
+body {
+    background-color: #040827;
+}
+.logo-white {
+    height: 30px;
+    width: auto;
+}
+.nav {
+    padding: 5px;
+    padding-left: 15px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 60px;
+    /* background-color: #040827; */
+    color: aliceblue;
+}
+.nav h1 {
+    padding-left: 10px;
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+.nav i {
+    font-size: 1rem;
+}
+.languages {
+    margin-left: 80%;
+}
+.lang-opt {
+    border: none;
+    outline: none;
+    color: aliceblue;
+    background-color: #040827;
+}
+/* .lang-options{
+} */
+.container {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px;
+}
+.headings {
+    margin-bottom: 25px;
+}
+.icon {
+    display: flex;
+    padding: 5px;
+    color: #040827;
+    background-color: aliceblue;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    /* margin-top: 50px; */
+    /* width: 40px; */
+    /* height: 40px; */
+}
+i {
+    font-size: 1.6rem;
+    justify-content: center;
+    align-items: center;
+}
+i:hover{
+    cursor: pointer;
+}
+.container h1 {
+    color: aliceblue;
+}
+.input-field {
+    /* margin-top: 50px; */
+    width: 600px;
+    height: 40px;
+    padding: 10px;
+    padding-left: 25px;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-color: aliceblue;
+}
+.top-bg-img {
+    position: absolute;
+    z-index: -1;
+}
+.bottom-bg-img {
+    margin-bottom: 0;
+    position: fixed;
+    z-index: -1;
+    /* width: 2000px; */
+}
+.Search_bar {
+    display: flex;
+}
+.flexing{
+    width: fit-content;
+    display: flex;
+} 
+.output {
+    display: flex;
+    flex-wrap: scroll;
+    width: 640px;
+    height: auto;
+    max-height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    background-color: aliceblue;
+    padding: 20px;
+    margin-top: 20px; 
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.output::-webkit-scrollbar{
+    display: none;
+}
+.btn {
+    background-color: aliceblue;
+    width: 640px;
+    height: 40px;
+    border: none;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+.btn:hover {
+    cursor: pointer;
+}

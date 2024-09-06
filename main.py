@@ -26,10 +26,11 @@ cap = YoutubeCaption()
 aud = AudioCaption("cookies.txt")
 
 @app.get("/yt")
-async def captions(url, task="notes", language="english", prompt=f"output {task} of this in {language} language"):
+async def captions(url, prompt="", task="notes", language="english"):
     print(url)
     id = cap.extract_video_id(url)
     hash = aud.generate_random_hash_name(id)
+    if not prompt: prompt = f"output {task} of this in {language} language"
     
     captions = cap.get_subtitle(url)
     if captions: 
