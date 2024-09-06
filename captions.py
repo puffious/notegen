@@ -47,7 +47,7 @@ class AudioCaption:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl: ydl.download([url])
         
         # Get the file extension of the downloaded file
-        downloaded_files = [file for file in os.listdir('downloads') if random_hash_name in file]
+        downloaded_files = [file for file in os.listdir('downloads') if filename in file]
         if downloaded_files:
             downloaded_file_name = downloaded_files[0]
             print(f'Downloaded audio file: {downloaded_file_name}')

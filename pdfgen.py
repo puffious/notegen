@@ -16,7 +16,7 @@ def create_pdf(text, pdf_filename, language):
     if language.lower() == "gujarati":
         FONT = "NotoSansGujarati"
     elif language.lower() == "english":
-        FONT = "NotoSans"
+        FONT = "NotoSansGujarati"
     else:  # Default to Hindi font
         FONT = "NotoSansDevanagari"
 
