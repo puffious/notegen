@@ -38,7 +38,8 @@ class AudioCaption:
         return hash_object.hexdigest()
     
     def download_audio(self, url, filename):
-        output_template = os.path.join(self.downloads_dir, filename)
+        new = os.path.join(self.downloads_dir, filename)
+        output_template = f"{new}.%(ext)s"
 
         ydl_opts = {
             'format': 'm4a',

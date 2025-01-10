@@ -1,7 +1,9 @@
-python-dotenv
-youtube-transcript-api
-google-generativeai
-uvicorn
-fastapi
-yt-dlp
-reportlab
+fastapi==0.109.2
+uvicorn==0.27.1
+python-dotenv==1.0.1
+google-generativeai==0.3.2
+yt-dlp==2023.12.30
+python-multipart==0.0.6
+reportlab==4.0.9
+Pillow==10.2.0
+requests==2.31.0
