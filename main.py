@@ -38,14 +38,29 @@ async def root():
 cap = YoutubeCaption()
 aud = AudioCaption("cookies.txt", downloads_dir=DOWN_DIR)
 
+def save_to_cache(content, cache_path):
+    with open(cache_path, 'w', encoding='utf-8') as f:
+        f.write(content)
+
+def read_from_cache(cache_path):
+    with open(cache_path, 'r', encoding='utf-8') as f:
+        return f.read()
+
 @app.get("/yt")
 async def captions(url, prompt="", task="notes", language="english"):
     print(url)
     id = cap.extract_video_id(url)
     hash = aud.generate_random_hash_name(id)
+    cache_path = os.path.join(DOWN_DIR, f"{hash}.txt")
+    
+    # Check if cached result exists
+    if os.path.exists(cache_path):
+        output = read_from_cache(cache_path)
+        return output
+
+    # If not cached, generate new output
     audio_name = f"{hash}.m4a"
     audio_path = os.path.join(DOWN_DIR, audio_name)
-    print(audio_path)
     if not prompt: prompt = f"output {task} of this in {language} language"
 
     captions = cap.get_subtitle(url) 
@@ -56,19 +71,35 @@ async def captions(url, prompt="", task="notes", language="english"):
         if not os.path.exists(audio_path): 
             aud.download_audio(url, filename=hash)
         output = jam.audio_prompt(audio_path, prompt)
+        # Clean up audio file after processing
+        if os.path.exists(audio_path):
+            os.remove(audio_path)
+    
+    # Cache the output
+    save_to_cache(output, cache_path)
+    
+    # Generate PDF from the output
     pdf_path = os.path.join(DOWN_DIR, f"{hash}.pdf")
     create_pdf(output, pdf_path, language)
-    # remove audio file
-    os.remove(audio_path)
+    
     return output
 
 @app.get("/download_pdf")
 async def downpdf(url):
     id = cap.extract_video_id(url)
     hash = aud.generate_random_hash_name(id)
-    file_path = os.path.join(DOWN_DIR, f"{hash}.pdf")
-    if os.path.exists(file_path):
-        return FileResponse(path=file_path, filename="note.pdf", media_type="application/pdf")
+    cache_path = os.path.join(DOWN_DIR, f"{hash}.txt")
+    pdf_path = os.path.join(DOWN_DIR, f"{hash}.pdf")
+    
+    # If PDF doesn't exist but cache does, regenerate PDF from cache
+    if not os.path.exists(pdf_path) and os.path.exists(cache_path):
+        output = read_from_cache(cache_path)
+        create_pdf(output, pdf_path, "english")  # Default to English if not specified
+        
+    if os.path.exists(pdf_path):
+        return FileResponse(path=pdf_path, filename="note.pdf", media_type="application/pdf")
+    else:
+        return {"error": "PDF not found"}
 
 if __name__ == "__main__":
     import uvicorn
