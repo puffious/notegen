@@ -27,16 +27,18 @@ class YoutubeCaption:
         return english_subtitles
 
 class AudioCaption:
-    def __init__(self, cookie_file):
+    def __init__(self, cookie_file, downloads_dir="downloads"):
         self.cookie_file = cookie_file
+        self.downloads_dir = downloads_dir
+        # Create downloads directory if it doesn't exist
+        os.makedirs(self.downloads_dir, exist_ok=True)
     
     def generate_random_hash_name(self, text):
-        # random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         hash_object = hashlib.md5(text.encode())
         return hash_object.hexdigest()
     
     def download_audio(self, url, filename):
-        output_template = f'downloads/{filename}.%(ext)s'
+        output_template = os.path.join(self.downloads_dir, filename)
 
         ydl_opts = {
             'format': 'm4a',
@@ -47,7 +49,7 @@ class AudioCaption:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl: ydl.download([url])
         
         # Get the file extension of the downloaded file
-        downloaded_files = [file for file in os.listdir('downloads') if filename in file]
+        downloaded_files = [file for file in os.listdir(self.downloads_dir) if filename in file]
         if downloaded_files:
             downloaded_file_name = downloaded_files[0]
             print(f'Downloaded audio file: {downloaded_file_name}')
