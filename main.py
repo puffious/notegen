@@ -6,10 +6,12 @@ from dotenv import load_dotenv
 from captions import YoutubeCaption, AudioCaption
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
 load_dotenv()
 GEM_API = os.getenv("GEMINI_API_KEY")
-DOWN_DIR = r"C:\\Users\\Administrator\\Desktop\\hackathon\\downloads"
+DOWN_DIR = os.path.join(os.curdir, "downloads")
 jam = Gemini(GEM_API)
 app = FastAPI()
 
@@ -21,6 +23,14 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all HTTP methods
     allow_headers=["*"],  # Allows all headers
 )
+
+# Mount the frontend static files
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+@app.get("/", response_class=HTMLResponse)
+async def root():
+    with open("frontend/index.html", "r") as f:
+        return f.read()
 
 cap = YoutubeCaption()
 aud = AudioCaption("cookies.txt")
@@ -46,6 +56,8 @@ async def captions(url, prompt="", task="notes", language="english"):
             output = jam.audio_prompt(audio_path, prompt)
     pdf_path = os.path.join(DOWN_DIR, f"{hash}.pdf")
     create_pdf(output, pdf_path, language)
+    # remove audio file
+    os.remove(audio_path)
     return output
 
 @app.get("/download_pdf")
@@ -55,3 +67,7 @@ async def downpdf(url):
     file_path = os.path.join(DOWN_DIR, f"{hash}.pdf")
     if os.path.exists(file_path):
         return FileResponse(path=file_path, filename="note.pdf", media_type="application/pdf")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

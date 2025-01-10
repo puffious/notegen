@@ -2,17 +2,17 @@ async function getValue() {
     var inputElement = document.getElementById('myIn');
     var inputValue = inputElement.value;
     document.getElementById("output").innerText = "Generating Notes... This May Take Few Moments";
-    const apiUrl = 'https://notegen.gamick.eu.org/yt?url=';
+    const apiUrl = '/yt?url=';
     const apiUrl2 = '&language=';
     const lang = document.getElementById('lang').value;
 
     try {
-        const response = await fetch(apiUrl + encodeURIComponent(inputValue) + apiUrl2 + lang); // Encode the URL parameter
+        const response = await fetch(apiUrl + encodeURIComponent(inputValue) + apiUrl2 + lang);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        const responseText = await response.text(); // Read the response body once
+        const responseText = await response.text();
         var OUTPUT = responseText;
         // Convert Markdown-like text to HTML
         const html = parseMarkdown(responseText);
@@ -54,10 +54,10 @@ async function downloadPDF() {
     var inputElement = document.getElementById('myIn');
     var inputValue = inputElement.value;
     document.getElementById("output").innerText = "Generating PDF... This May Take a Few Moments";
-    const apiUrl = 'https://notegen.gamick.eu.org/download_pdf?url=';
+    const apiUrl = '/download_pdf?url=';
 
     try {
-        const response = await fetch(apiUrl + encodeURIComponent(inputValue)); // Encode the URL parameter
+        const response = await fetch(apiUrl + encodeURIComponent(inputValue));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -66,12 +66,10 @@ async function downloadPDF() {
         const blob = await response.blob();
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = 'note.pdf'; // Set the default file name
+        link.download = 'note.pdf';
         link.click();
         
-        // Optional: Clean up the URL object
         window.URL.revokeObjectURL(link.href);
-
         document.getElementById("output").innerText = "Download started. If the download does not start automatically, please check your browser's download folder.";
 
     } catch (error) {
