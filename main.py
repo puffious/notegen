@@ -42,11 +42,11 @@ async def captions(url, prompt="", task="notes", language="english"):
     hash = aud.generate_random_hash_name(id)
     if not prompt: prompt = f"output {task} of this in {language} language"
     
-    captions = cap.get_subtitle(url)
-    if captions: 
+    try:
+        captions = cap.get_subtitle(url) 
         caption = captions[0]
         output = jam.prompt(f"{prompt} of {caption}")
-    else:
+    except:
         if not os.path.exists(f"{hash}.m4a"):
             aud_name = aud.download_audio(url, filename=hash)
             audio_path = os.path.join(DOWN_DIR, aud_name)
