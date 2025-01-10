@@ -26,6 +26,3 @@ services:
           memory: 512M
     volumes:
       - .:/app
-
-volumes:
-  postgres_data: 
